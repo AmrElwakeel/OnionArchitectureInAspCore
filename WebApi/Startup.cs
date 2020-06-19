@@ -28,16 +28,7 @@ namespace WebApi
         {
             services.AddControllers(); 
 
-            services.AddSwaggerGen(c =>
-            {
-                c.IncludeXmlComments(string.Format(@"{0}\OnionArchitecture.xml", System.AppDomain.CurrentDomain.BaseDirectory));
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "OnionArchitecture",
-                });
 
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,8 +43,6 @@ namespace WebApi
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -63,6 +52,10 @@ namespace WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnionArchitecture");
             });
+
+            app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {
