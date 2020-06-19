@@ -24,16 +24,29 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public ActionResult<IEnumerable<WeatherForecast>> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Ok(Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
-            .ToArray();
+            .ToArray());
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(int id)
+        {
+            if(id==0)
+                return BadRequest();
+
+            if (id > Summaries.Length)
+                return NotFound();
+
+            return Summaries[id];
+        }
+
     }
 }
