@@ -37,7 +37,6 @@ namespace WebApi
             #region Swagger
             services.AddSwaggerGen(c =>
             {
-                c.IncludeXmlComments(string.Format(@"{0}\OnionArchitecture.xml", System.AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -62,7 +61,6 @@ namespace WebApi
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -85,8 +83,6 @@ namespace WebApi
             });
 
             app.UseAuthorization();
-
-
 
 
             app.UseEndpoints(endpoints =>
