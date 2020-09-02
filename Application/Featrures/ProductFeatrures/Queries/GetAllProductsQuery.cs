@@ -14,10 +14,10 @@ using AutoMapper.QueryableExtensions;
 
 namespace Application.Featrures.ProductFeatrures.Queries
 {
-    public class GetAllProductsQuery : IRequest<ProductVm>
+    public class GetAllProductsQuery : IRequest<List<ProductListDto>>
     {
 
-        public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, ProductVm>
+        public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<ProductListDto>>
         {
             private readonly IApplicationDbContext _context;
             private readonly IMapper _mapper;
@@ -26,18 +26,17 @@ namespace Application.Featrures.ProductFeatrures.Queries
                 _context = context;
                 _mapper = mapper;
             }
-            public async Task<ProductVm> Handle(GetAllProductsQuery query, CancellationToken cancellationToken)
-            {
-                var vm = new ProductVm();
-                vm.list = await _context.Products
+            public async Task<List<ProductListDto>> Handle(GetAllProductsQuery query, CancellationToken cancellationToken)
+            { 
+                var ProjectList= await _context.Products
                     .ProjectTo<ProductListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                if (vm.list == null)
+                if (ProjectList == null)
                 {
                     return null;
                 }
-                return vm;
+                return ProjectList;
             }
         }
     }

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{237F83FE-EA0B-4863-A3AF-55FFE4194828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{70B54AE7-880F-492F-A86B-9F29B4D82D27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{70B54AE7-880F-492F-A86B-9F29B4D82D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
