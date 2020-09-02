@@ -16,8 +16,8 @@ namespace Application.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Product, ProductListDto>()
-                .ForMember(d => d.Barcode, opt => opt.MapFrom(src => src.Barcode));
+            profile.CreateMap<Product, ProductListDto>();
+                //.ForMember(d => d.Barcode, opt => opt.MapFrom(src => src.Barcode));
         }
     }
 }
