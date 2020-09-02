@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using Application.Models;
 
 namespace Application.Featrures.ProductFeatrures.Queries
 {
@@ -16,6 +19,7 @@ namespace Application.Featrures.ProductFeatrures.Queries
         public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, IEnumerable<Product>>
         {
             private readonly IApplicationDbContext _context;
+            private readonly IMapper _mapper;
             public GetAllProductsQueryHandler(IApplicationDbContext context)
             {
                 _context = context;
