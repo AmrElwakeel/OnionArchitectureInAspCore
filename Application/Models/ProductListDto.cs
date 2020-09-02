@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Application.Models
 {
-    class ProductListDto:IMapFrom<Product>
+    public class ProductListDto:IMapFrom<Product>
     {
         public string Name { get; set; }
         public string Barcode { get; set; }
