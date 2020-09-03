@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.IUOW;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,17 +16,17 @@ namespace Application.Featrures.ProductFeatrures.Commends
         public int Id { get; set; }
         public class DeleteProductByIdCommandHandler : IRequestHandler<DeleteProductByIdCommand, int>
         {
-            private readonly IApplicationDbContext _context;
-            public DeleteProductByIdCommandHandler(IApplicationDbContext context)
+            private readonly IUOW _unitOfWork;
+            public DeleteProductByIdCommandHandler(IUOW unitOfWork)
             {
-                _context = context;
+                _unitOfWork = unitOfWork;
             }
             public async Task<int> Handle(DeleteProductByIdCommand command, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
+                var product = await _unitOfWork.GetProductRepository.FindById(command.Id);
                 if (product == null) return default;
-                _context.Products.Remove(product);
-                await _context.SaveChanges();
+                _unitOfWork.GetProductRepository.Delete(command.Id);
+                await _unitOfWork.GetProductRepository.SaveChanges();
                 return product.Id;
             }
         }

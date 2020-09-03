@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.IUOW;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,17 +13,17 @@ namespace Application.Featrures.ProductFeatrures.Queries
 {
     public class GetProductByIdQuery : IRequest<Product>
     {
-        public int Id { get; set; }
+        public int Id { get;}
         public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Product>
         {
-            private readonly IApplicationDbContext _context;
-            public GetProductByIdQueryHandler(IApplicationDbContext context)
+            private readonly IUOW _unitOfWork;
+            public GetProductByIdQueryHandler(IUOW unitOfWork)
             {
-                _context = context;
+                _unitOfWork = unitOfWork;
             }
             public async Task<Product> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
             {
-                var product = _context.Products.Where(a => a.Id == query.Id).FirstOrDefault();
+                var product = await _unitOfWork.GetProductRepository.FindById(query.Id);
                 if (product == null) return null;
                 return product;
             }

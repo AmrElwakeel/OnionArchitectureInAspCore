@@ -36,9 +36,5 @@ namespace Persistence
 
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
-        public async Task<int> SaveChanges()
-        {
-            return await base.SaveChangesAsync();
-        }
     }
 }

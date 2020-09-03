@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.IUOW;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -17,10 +18,10 @@ namespace Application.Featrures.ProductFeatrures.Commends
         public decimal Rate { get; set; }
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
         {
-            private readonly IApplicationDbContext _context;
-            public CreateProductCommandHandler(IApplicationDbContext context)
+            private readonly IUOW _unitOfWork;
+            public CreateProductCommandHandler(IUOW unitOfWork)
             {
-                _context = context;
+                _unitOfWork = unitOfWork;
             }
             public async Task<int> Handle(CreateProductCommand command, CancellationToken cancellationToken)
             {
@@ -29,8 +30,9 @@ namespace Application.Featrures.ProductFeatrures.Commends
                 product.Name = command.Name;
                 product.Rate = command.Rate;
                 product.Description = command.Description;
-                _context.Products.Add(product);
-                await _context.SaveChanges();
+                _unitOfWork.GetProductRepository.Create(product);
+                await _unitOfWork.GetProductRepository.SaveChanges();
+
                 return product.Id;
             }
         }

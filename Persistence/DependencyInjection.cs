@@ -1,7 +1,9 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.IUOW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Repositories;
 
 namespace Persistence
 {
@@ -14,7 +16,9 @@ namespace Persistence
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddScoped<IUOW, UOW>();
         }
     }
 }

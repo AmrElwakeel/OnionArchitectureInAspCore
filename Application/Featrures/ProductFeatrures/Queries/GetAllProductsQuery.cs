@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Application.Models;
 using AutoMapper.QueryableExtensions;
+using Application.Interfaces.IUOW;
 
 namespace Application.Featrures.ProductFeatrures.Queries
 {
@@ -19,16 +20,16 @@ namespace Application.Featrures.ProductFeatrures.Queries
 
         public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<ProductListDto>>
         {
-            private readonly IApplicationDbContext _context;
+            private readonly IUOW _unitOfWork;
             private readonly IMapper _mapper;
-            public GetAllProductsQueryHandler(IApplicationDbContext context, IMapper mapper)
+            public GetAllProductsQueryHandler(IUOW unitOfWork, IMapper mapper)
             {
-                _context = context;
+                _unitOfWork = unitOfWork;
                 _mapper = mapper;
             }
             public async Task<List<ProductListDto>> Handle(GetAllProductsQuery query, CancellationToken cancellationToken)
             { 
-                var ProjectList= await _context.Products
+                var ProjectList= await _unitOfWork.GetProductRepository.GetAll().AsQueryable()
                     .ProjectTo<ProductListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
