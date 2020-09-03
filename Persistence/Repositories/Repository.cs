@@ -53,12 +53,5 @@ namespace Persistence.Repositories
         {
             _entities.Update(entity);
         }
-
-
-
-        public async Task<int> SaveChanges()
-        {
-            return await _context.SaveChangesAsync();
-        }
     }
 }

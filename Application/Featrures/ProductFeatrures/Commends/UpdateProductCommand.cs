@@ -38,7 +38,7 @@ namespace Application.Featrures.ProductFeatrures.Commends
                     product.Name = command.Name;
                     product.Rate = command.Rate;
                     product.Description = command.Description;
-                    await _unitOfWork.GetProductRepository.SaveChanges();
+                    await _unitOfWork.SaveChanges();
 
                     return product.Id;
                 }

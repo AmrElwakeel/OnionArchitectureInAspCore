@@ -4,6 +4,7 @@ using Application.Interfaces.IUOW;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
@@ -23,6 +24,11 @@ namespace Persistence.Repositories
                     productRepository = new Productrepository(_context);
                 return productRepository;
             }
+        }
+
+        public async Task<bool> SaveChanges()
+        {
+            return await _context.SaveChangesAsync() == 1 ? true : false;
         }
     }
 }

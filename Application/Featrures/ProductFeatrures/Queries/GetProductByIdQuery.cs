@@ -13,7 +13,7 @@ namespace Application.Featrures.ProductFeatrures.Queries
 {
     public class GetProductByIdQuery : IRequest<Product>
     {
-        public int Id { get;}
+        public int Id { get; set; }
         public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Product>
         {
             private readonly IUOW _unitOfWork;

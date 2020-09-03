@@ -26,7 +26,7 @@ namespace Application.Featrures.ProductFeatrures.Commends
                 var product = await _unitOfWork.GetProductRepository.FindById(command.Id);
                 if (product == null) return default;
                 _unitOfWork.GetProductRepository.Delete(command.Id);
-                await _unitOfWork.GetProductRepository.SaveChanges();
+                await _unitOfWork.SaveChanges();
                 return product.Id;
             }
         }

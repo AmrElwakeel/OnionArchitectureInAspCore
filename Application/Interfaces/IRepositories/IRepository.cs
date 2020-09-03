@@ -15,7 +15,5 @@ namespace Application.Interfaces.IRepositories
         void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(int id);
-
-        Task<int> SaveChanges();
     }
 }
